@@ -104,7 +104,6 @@ angular.module('emission.main', ['emission.main.recent',
       
   })
 
-  
 
 
   .state('root.main.incident', {

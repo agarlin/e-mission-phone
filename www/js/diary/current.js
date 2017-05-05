@@ -15,6 +15,7 @@
     $scope.mapCtrl.selKey = "background/location";
     var ptmm = {};
     $scope.config = {}
+    $scope.tripId = $stateParams.tripId;
     $scope.config.key_data_mapping = {
       "Transitions": {
           fn: db.getAllMessages,
@@ -186,9 +187,19 @@
     CommonGraph.updateCurrent();
   };
   readAndUpdateForDay(moment().startOf('day'));
-  console.log("tripid", $scope);
+  console.log("tripid", Timeline.data.currDayTrips);
 
-  
+  $scope.runTrip = function(trips) {
+      if (trips.length != 0) {
+          $scope.tripId = Timeline.getTrip(trips[trips.length - 1].id);
+          $scope.trip = Timeline.getTrip($stateParams.tripId);
+          $scope.tripgj = DiaryHelper.directiveForTrip($scope.trip); 
+          $scope.start_place = tripgj.start_place.properties.displayName.split(',')[0];
+
+      }
+  };
+
+  $scope.runTrip(Timeline.data.currDayTrips);
   // $scope.func();
 
   // $scope.lat_long = function() {
